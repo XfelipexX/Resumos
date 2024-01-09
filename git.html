@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Configurando sua identificação no Git</h2>
+    <p>git config --global user.name "Seu nome"</p>
+    <p>git config --global user.email "Seu email de cadastro do Github"</p>
+    <p>git config --lis</p>
+    <h2></h2>
+    <h2>salvar primeira versão de um projeto no Github</h2>
+    <p>git init</p>
+    <p>git add .</p>
+    <p>git commit -m ""</p>
+    <p>git branch -M main git remote add origin git@github.com:seuusuario/seurepositorio.git</p>
+    <p>git push -u origin main</p>
+    <h2></h2>
+    <h2>Salvando um novo commit</h2>
+    <p>git status</p>
+    <p>git add .</p>
+    <p>git commit -m ""</p>
+    <p>git push</p>
+    <h2></h2>
+    <h2>clonar e modificar um projeto de um repositório remoto que você tem permissão para altera</h2>
+    <p>git clone git@github.com:seuusuario/seurepositorio.git</p>
+    <p>git add .</p>
+    <p>git commit -m ""</p>
+    <p>git push</p>
+
+    <img src="C:\Users\felip\Desktop\programação\HTML\Imagens\clonaremodificar.png" alt="">
+
+    <h2>Verificando o histórico de versões</h2>
+    <p>git log</p>
+    <p>git log --online</p>
+    <h2></h2>
+    <h2>Git checkout</h2>
+    <p>É possível referenciar um commit N versões antes de HEAD usando ~N, por exemplo:</p> 
+    <p>HEAD~1 (penúltimo commit) • </p>
+    <p>HEAD~2 (antepenúltimo commit)</p>
+    <p>antes de fazer o checkout para voltar para HEAD, certifique-se de que não 
+        haja mudanças nos arquivos. Se você acidentalmente mudou alguma coisa, desfaça as 
+        modificações usando:</p>
+    <p>git reset</p>
+    <p>git clean -df</p>
+    <p>git checkout -- .</p>
+    
+    <h2>.gitignore</h2>
+    <h4>Arquivos compilados</h4>
+    <p>Linguagens compiladas (C, C++, Java, C#, etc.) geram arquivos de código compilado para executar o programa localmente. </p>
+    <h4>Arquivos de bibliotecas externas usadas no projeto</h4>
+    <p>rojetos reais utilizam bibliotecas externas (programas prontos disponíveis na Internet). Por exemplo, projetos JavaScript com NPM tipicamente salvam uma subpasta "node_modules" na pasta do seu projeto. </p>
+    <h4>Arquivos de configuração da sua IDE</h4>
+    <p>IDE's podem salvar uma subpasta com arquivos de configuração na pasta do projeto (exemplo: .vscode).</p>
+    <h4>Arquivos de configuração do seu sistema</h4>
+    <p>por exemplo, sistemas Mac podem gravar uma subpasta .ds_store na pasta do projeto</p>
+
+
+</body>
+</html>
