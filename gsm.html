@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Generic</h2>
+    <p>instancia -> classe< tipo ex:integer, String e etc> apelido = new classe<>tipo>();</p>
+    <p>na classe lembrando que T é uma letra aleatoria onde representa o tipo</p>
+    <img src="C:\Users\felip\Desktop\programação\HTML\Imagens\Generic.jpg" alt="Generic na class" height="500" width="1200">
+    <h2>Coringa</h2>
+    <p></p>
+    <p>instancia -> List< ?> apelido = new ArrayList< Object>();</p>
+    <h2>hashCode e equals</h2>
+    <p>São operações da classe Object utilizadas para comparar se um objeto é igual a outro</p>
+    <p>• equals: lento, resposta 100% </p>
+    <p>• hashCode: rápido, porém resposta positiva não é 100%</p>
+    <p>Equals-> Método que compara se o objeto é igual a outro, retornando true ou false.</p>
+    <p>HashCode-> Método que retorna um número inteiro representando um código gerado a partir das informações do objeto</p>
+    <h2>set</h2>
+    <p>chamando -> set< String> set = new HashSet, treeSet e etc<>();</p>
+    <p>HashSet - mais rápido (operações O(1) em tabela hash) e não ordenado</p>
+    <p>TreeSet - mais lento (operações O(log(n)) em árvore rubro-negra) e ordenado pelo compareTo do objeto (ou Comparator)</p>
+    <p>LinkedHashSet - velocidade intermediária e elementos na ordem em que são adicionados</p>
+    <h3>Alguns métodos importantes</h3>
+    <p>• add(obj), remove(obj), contains(obj)</p>
+    <p>Baseado em equals e hashCode</p>
+    <p>Se equals e hashCode não existir, é usada comparação de ponteiros</p>
+    <p>clear()</p>
+    <p>Size()</p>
+    <p>removeif(predicate) ex: removeif(x-> x.char.at(0) == 'T') para remover todos os nomes que começa com T </p>
+    <p>addAll(other) - união: adiciona no conjunto os elementos do outro conjunto, sem repetição</p>
+    <p>retainAll(other) - interseção: remove do conjunto os elementos não contitos em other</p>
+    <p>removeAll(other) - diferença: remove do conjunto os elementos contidos em other</p>
+    <h2>Map< K,V></h2>
+    <p>É uma coleção de pares chave / valor</p>
+    <P>Não admite repetições do objeto chave</P>
+    <p>Os elementos são indexados pelo objeto chave (não possuem posição)</p>
+    <p>Acesso, inserção e remoção de elementos são rápidos</p>
+    <p>Uso comum: cookies, local storage, qualquer modelo chave-valor</p>
+    <h3>Principais implementações:</h3>
+    <p>HashMap - mais rápido (operações O(1) em tabela hash) e não ordenado</p>
+    <p>TreeMap - mais lento (operações O(log(n)) em árvore rubro-negra) e ordenado pelo compareTo do objeto (ou Comparator)</p>
+    <p>LinkedHashMap - velocidade intermediária e elementos na ordem em que são adicionados</p>
+    <h2>Alguns métodos importantes</h2>
+    <p>put(key, value), remove(key), containsKey(key), get(key)</p>
+    <p>Baseado em equals e hashCode</p>
+    <p>Se equals e hashCode não existir, é usada comparação de ponteiros</p>
+    <p>clear()</p>
+    <p>size()</p>
+    <p>keySet() - retorna um Set< K></p>
+    <p>values() - retornaa um Collection< V></p>
+
+</body>
+</html>
