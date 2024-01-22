@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Comparator</h2>
+    <p>em lambda</p>
+    <p>Usado para comparar preços -> list.sort((p1, p2) -> p1.getPrice().compareTo(p2.getPrice()));</p>
+    <p>usado para comparar nomes -> list.sort((s1, s2) -> s1.toUppercase().compareTo(s2.toUppercase()));</p>
+    
+    <h2>Predicate</h2>
+    <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html"> Documentação</a>
+    <p>Um boolean</p>
+    <p>em lambda</p>
+    <p>Um exemplo de um Predicate que acha valores maior q 100 ->Predicate< tipo> apelido = p -> p.getPrice() >= 100 </p>
+    
+    <h2>Consumer</h2>
+    <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html"> Documentação</a>
+    <p>Consumer ele executa uma função mas nao retorna nada</p>
+    <p>Um exemplo de um Consumer que add 10% em cada preço de uma lista ->Consumer< tipo> apelido = p -> p.getPrice(p.getPrice * 1.1)  </p>
+    
+    <h2>function</h2>
+    <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html">Documentação</a>
+    <p>É uma função que recebe um t e retorna um r</p>
+    <p>exemplo de um function que transforma a primeira letra de cada nome em uma letra maiuscula (o function esta dentro do .map)</p>
+    <p>List< String> list = list.stream().map(new toUppercaseName()).collect(collectors.toList)</p>
+    
+    <h2>Stream</h2>
+    <a href="https://www.oracle.com/br/technical-resources/articles/java-stream-api.html">Documentação</a>
+    <p>É uma sequencia de elementos advinda de uma fonte de dados que oferece suporte a "operações agregadas"</p>
+    <p>Fonte de dados: coleção, array, função de iteração, recurso de E/S</p>
+    <p></p>
+    <h1>criar uma Steam</h1>
+    <p>usa - Stream< String> stream =</p>
+    <p>Basta chamar o método stream() ou parallelStream() a partir de qualquer objeto Collection</p>
+    <p>Stream.of =  cria uma stream a partir dos elementos fornecidos como argumentos.</p>
+    <p>Stream.ofNullable = cria uma stream com um único elemento, a menos que o elemento seja nulo, nesse caso, cria uma stream vazia.</p>
+    <p>Stream.iterate = cria uma stream onde cada elemento é gerado pela aplicação repetida de uma função ao elemento anterior. Pode ser usado para gerar sequências infinitas.</p>
+    
+    <h2>Operações intermediárias</h2>
+    <p>map(Function): Adiciona algo em todas as steam.</p>
+    <p>filter: Filtra os elementos da stream com base em uma condição especificada pelo predicado.</p>
+    <p>flatmap: Converte cada elemento em zero ou mais elementos em uma nova stream.</p>
+    <p>peek: Permite realizar operações de lado (side effects) em cada elemento da stream sem modificar seu conteúdo.</p>
+    <p>distinct: Remove elementos duplicados da stream.</p>
+    <p>sorted: Ordena os elementos da stream com base em uma ordem natural ou usando um comparador fornecido.</p>
+    <p>skip: Pula os primeiros N elementos da stream.</p>
+    <p>limit: Limita a stream para conter no máximo N elementos.</p>
+
+    <h2>Operações terminais</h2>
+    <p>removeIf(Predicate): Remove elementos da coleção que atendem à condição especificada pelo predicado.</p>
+    <p>foreach(Consumer): Executa uma ação para cada elemento da stream.</p>
+    <p>foreach: Executa uma ação para cada elemento da stream.</p>
+    <p>forEachOrdered: Executa uma ação para cada elemento da stream respeitando a ordem.</p>
+    <p>toArray: Converte os elementos da stream em um array.</p>
+    <p>reduce: Combina os elementos da stream em um único resultado usando uma operação associativa e um identificador.</p>
+    <p>collect: Realiza uma redução mutável acumulando os elementos da stream em uma coleção ou outra estrutura de dados.</p>
+    <p>min: Encontra o menor elemento da stream com base em uma ordem natural ou um comparador fornecido.</p>
+    <p>max: Encontra o maior elemento da stream com base em uma ordem natural ou um comparador fornecido.</p>
+    <p>count: Retorna o número de elementos na stream.</p>
+    <p>anyMatch: Verifica se pelo menos um elemento da stream atende à condição especificada.</p>
+    <p>allMatch: Verifica se todos os elementos da stream atendem à condição especificada.</p>
+    <p>noneMatch: Verifica se nenhum elemento da stream atende à condição especificada.</p>
+    <p>findFirst: Encontra o primeiro elemento da stream.</p>
+    <p>findAny: Encontra qualquer elemento da stream. Em streams paralelas, isso pode ser mais eficiente do que findFirst.</p>
+
+</body>
+</html>
