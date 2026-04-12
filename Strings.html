@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Formatação de Strings</h1>
+    <table border="1">
+
+    <!-- CRIAÇÃO -->
+    <tr><td colspan="2"><b>CRIAÇÃO / CONVERSÃO</b></td></tr>
+    <tr><td>String s = "Texto";</td><td>Cria string</td></tr>
+    <tr><td>String.valueOf(10)</td><td>Converte para string</td></tr>
+    <tr><td>Integer.parseInt("10")</td><td>String para int</td></tr>
+    <tr><td>Double.parseDouble("10.5")</td><td>String para double</td></tr>
+    <tr><td>s.toCharArray()</td><td>String para char[]</td></tr>
+    <tr><td>s.getBytes()</td><td>String para bytes</td></tr>
+
+    <!-- TAMANHO / ESTADO -->
+    <tr><td colspan="2"><b>TAMANHO / ESTADO</b></td></tr>
+    <tr><td>s.length()</td><td>Tamanho da string</td></tr>
+    <tr><td>s.isEmpty()</td><td>Verifica vazia</td></tr>
+    <tr><td>s.isBlank()</td><td>Vazia ou espaços</td></tr>
+
+    <!-- COMPARAÇÃO -->
+    <tr><td colspan="2"><b>COMPARAÇÃO</b></td></tr>
+    <tr><td>s.equals("x")</td><td>Compara conteúdo</td></tr>
+    <tr><td>s.equalsIgnoreCase("x")</td><td>Ignora maiúsc/minúsc</td></tr>
+    <tr><td>s.compareTo("x")</td><td>Ordem alfabética</td></tr>
+    <tr><td>s.compareToIgnoreCase("x")</td><td>Ordem ignorando case</td></tr>
+
+    <!-- BUSCA / VERIFICAÇÃO -->
+    <tr><td colspan="2"><b>BUSCA / VERIFICAÇÃO</b></td></tr>
+    <tr><td>s.contains("x")</td><td>Contém texto</td></tr>
+    <tr><td>s.startsWith("x")</td><td>Começa com</td></tr>
+    <tr><td>s.endsWith("x")</td><td>Termina com</td></tr>
+    <tr><td>s.matches("regex")</td><td>Valida padrão</td></tr>
+
+    <!-- POSIÇÃO -->
+    <tr><td colspan="2"><b>POSIÇÃO</b></td></tr>
+    <tr><td>s.indexOf("x")</td><td>Primeira posição</td></tr>
+    <tr><td>s.lastIndexOf("x")</td><td>Última posição</td></tr>
+
+    <!-- EXTRAÇÃO -->
+    <tr><td colspan="2"><b>EXTRAÇÃO</b></td></tr>
+    <tr><td>s.charAt(0)</td><td>Pega caractere</td></tr>
+    <tr><td>s.substring(1)</td><td>Corta a partir</td></tr>
+    <tr><td>s.substring(1,4)</td><td>Corta intervalo</td></tr>
+    <tr><td>s.subSequence(1,4)</td><td>Parte da string</td></tr>
+
+    <!-- MODIFICAÇÃO -->
+    <tr><td colspan="2"><b>MODIFICAÇÃO</b></td></tr>
+    <tr><td>s.replace("a","b")</td><td>Substitui</td></tr>
+    <tr><td>s.replaceAll("a","b")</td><td>Substitui com regex</td></tr>
+    <tr><td>s.replaceFirst("a","b")</td><td>Primeira ocorrência</td></tr>
+
+    <!-- FORMATAÇÃO -->
+    <tr><td colspan="2"><b>FORMATAÇÃO</b></td></tr>
+    <tr><td>s.toUpperCase()</td><td>Maiúsculo</td></tr>
+    <tr><td>s.toLowerCase()</td><td>Minúsculo</td></tr>
+    <tr><td>s.trim()</td><td>Remove espaços</td></tr>
+    <tr><td>s.strip()</td><td>Remove espaços Unicode</td></tr>
+    <tr><td>s.stripLeading()</td><td>Remove início</td></tr>
+    <tr><td>s.stripTrailing()</td><td>Remove final</td></tr>
+    <tr><td>s.indent(2)</td><td>Adiciona indentação</td></tr>
+
+    <!-- JUNÇÃO / DIVISÃO -->
+    <tr><td colspan="2"><b>JUNÇÃO / DIVISÃO</b></td></tr>
+    <tr><td>s.concat("abc")</td><td>Concatena</td></tr>
+    <tr><td>s + "abc"</td><td>Concatenação simples</td></tr>
+    <tr><td>String.join("-", "a","b")</td><td>Junta strings</td></tr>
+    <tr><td>s.split(",")</td><td>Divide string</td></tr>
+    <tr><td>s.lines()</td><td>Divide por linhas</td></tr>
+
+    <!-- REPETIÇÃO / OTIMIZAÇÃO -->
+    <tr><td colspan="2"><b>OUTROS</b></td></tr>
+    <tr><td>s.repeat(3)</td><td>Repete string</td></tr>
+    <tr><td>s.intern()</td><td>Otimiza memória</td></tr>
+    <tr><td>s.translateEscapes()</td><td>Interpreta escapes</td></tr>
+
+</table>
+</table>
+</body>
+</html>

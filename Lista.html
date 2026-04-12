@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Criando Lista</h2>
+    <p>List<> list = new ArrayList<>();</p>
+
+    <h2>Manupulação de Lista</h2>
+
+    <p>*Tamanho da lista: size()</p>
+    <p>• Obter o elemento de uma posição: 
+    get(position)</p>
+    
+    <p>• Inserir elemento na lista: 
+    add(obj), add(int, obj)</p>
+    
+    <p>• Remover elementos da lista:
+     remove(obj), remove(int), removeIf(Predicate)</p>
+    
+    <p>• Encontrar posição de elemento: 
+    indexOf(obj), lastIndexOf(obj)</p>
+    
+    <p>• Filtrar lista com base em predicado:
+    List<Integer> result = list.stream().filter(x -> x > 4).collect(Collectors.toList());</p>
+    
+    <p>• Encontrar primeira ocorrência com base em predicado:
+    Integer result = list.stream().filter(x -> x > 4).findFirst().orElse(null);</p>
+</body>
+</html>
