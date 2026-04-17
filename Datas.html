@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Guia de Datas em Java</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #222;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📅 Guia Completo: Datas em Java (java.time)</h1>
+
+<div class="box">
+    <h2>🔷 1. Principais Classes</h2>
+    <ul>
+        <li><strong>LocalDate</strong> → Data (ano, mês, dia)</li>
+        <li><strong>LocalTime</strong> → Hora</li>
+        <li><strong>LocalDateTime</strong> → Data + Hora</li>
+        <li><strong>Instant</strong> → Momento global (UTC)</li>
+    </ul>
+
+    <pre><code>
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+LocalDate data = LocalDate.now();
+LocalTime hora = LocalTime.now();
+LocalDateTime dataHora = LocalDateTime.now();
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 2. Criando Datas</h2>
+
+    <pre><code>
+LocalDate data = LocalDate.of(2025, 4, 17);
+LocalDateTime dataHora = LocalDateTime.of(2025, 4, 17, 14, 30);
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 3. Convertendo String para Data</h2>
+
+    <pre><code>
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+LocalDate data = LocalDate.parse("17/04/2025", formato);
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 4. Convertendo Data para String</h2>
+
+    <pre><code>
+String dataFormatada = data.format(formato);
+System.out.println(dataFormatada);
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 5. Operações com Datas</h2>
+
+    <pre><code>
+LocalDate hoje = LocalDate.now();
+
+LocalDate ontem = hoje.minusDays(1);
+LocalDate amanha = hoje.plusDays(1);
+
+LocalDate proximoMes = hoje.plusMonths(1);
+LocalDate anoPassado = hoje.minusYears(1);
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 6. Diferença entre Datas</h2>
+
+    <pre><code>
+import java.time.Period;
+
+LocalDate inicio = LocalDate.of(2024, 1, 1);
+LocalDate fim = LocalDate.now();
+
+Period periodo = Period.between(inicio, fim);
+
+System.out.println(periodo.getYears() + " anos");
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 7. Trabalhando com Instant (Tempo Global)</h2>
+
+    <pre><code>
+import java.time.Instant;
+
+Instant agora = Instant.now();
+
+Instant passado = agora.minusSeconds(3600); // 1 hora atrás
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 8. Conversão com TimeZone</h2>
+
+    <pre><code>
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+Instant instant = Instant.now();
+
+LocalDateTime dataLocal = LocalDateTime.ofInstant(
+    instant, ZoneId.systemDefault()
+);
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 9. Resumo Geral</h2>
+    <ul>
+        <li><strong>LocalDate</strong> → Data sem hora</li>
+        <li><strong>LocalTime</strong> → Hora sem data</li>
+        <li><strong>LocalDateTime</strong> → Data + hora</li>
+        <li><strong>Instant</strong> → Tempo global (UTC)</li>
+        <li><strong>DateTimeFormatter</strong> → Formatação</li>
+    </ul>
+</div>
+
+<div class="box">
+    <h2>💡 Dica Final</h2>
+    <p>
+        Prefira sempre usar <strong>java.time</strong> ao invés de classes antigas como <strong>Date</strong> e <strong>Calendar</strong>.
+    </p>
+</div>
+
+</body>
+</html>

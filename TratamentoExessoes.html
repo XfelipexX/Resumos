@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Guia de Tratamento de Exceções em Java</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #222;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>⚠️ Guia Completo: Tratamento de Exceções em Java</h1>
+
+<div class="box">
+    <h2>🔷 1. O que são Exceções?</h2>
+    <p>
+        Exceções são erros que acontecem durante a execução do programa (tempo de execução).
+    </p>
+
+    <ul>
+        <li>Divisão por zero</li>
+        <li>Acesso inválido a índice de array</li>
+        <li>Conversão de tipo inválida</li>
+    </ul>
+</div>
+
+<div class="box">
+    <h2>🔷 2. Hierarquia de Exceções</h2>
+
+    <pre><code>
+Throwable
+ ├── Error (erros graves do sistema)
+ └── Exception
+      ├── RuntimeException (não verificadas)
+      └── CheckedException (verificadas)
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 3. Try-Catch</h2>
+    <p>Usado para capturar e tratar exceções.</p>
+
+    <pre><code>
+try {
+    int x = 10 / 0;
+} catch (ArithmeticException e) {
+    System.out.println("Erro: divisão por zero");
+}
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 4. Múltiplos Catch</h2>
+
+    <pre><code>
+try {
+    String s = null;
+    System.out.println(s.length());
+} catch (NullPointerException e) {
+    System.out.println("Erro de null");
+} catch (Exception e) {
+    System.out.println("Erro genérico");
+}
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 5. Finally</h2>
+    <p>
+        O bloco <strong>finally</strong> sempre é executado, independente de erro.
+    </p>
+
+    <pre><code>
+try {
+    int x = 5 / 0;
+} catch (Exception e) {
+    System.out.println("Erro");
+} finally {
+    System.out.println("Sempre executa");
+}
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 6. Throw</h2>
+    <p>Usado para lançar uma exceção manualmente.</p>
+
+    <pre><code>
+if (idade &lt; 18) {
+    throw new IllegalArgumentException("Menor de idade");
+}
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 7. Throws</h2>
+    <p>Indica que um método pode lançar exceções.</p>
+
+    <pre><code>
+public void lerArquivo() throws IOException {
+    // código
+}
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 8. Checked vs Unchecked</h2>
+
+    <ul>
+        <li><strong>Checked:</strong> precisam ser tratadas (IOException)</li>
+        <li><strong>Unchecked:</strong> erros de lógica (RuntimeException)</li>
+    </ul>
+</div>
+
+<div class="box">
+    <h2>🔷 9. Criando Exceção Personalizada</h2>
+
+    <pre><code>
+class MinhaExcecao extends Exception {
+    public MinhaExcecao(String msg) {
+        super(msg);
+    }
+}
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 10. Exemplo Completo</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            System.out.print("Digite um número: ");
+            int x = Integer.parseInt(sc.nextLine());
+
+            int resultado = 10 / x;
+            System.out.println(resultado);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Número inválido");
+        } catch (ArithmeticException e) {
+            System.out.println("Divisão por zero");
+        } finally {
+            System.out.println("Fim do programa");
+        }
+
+        sc.close();
+    }
+}
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 11. Resumo Geral</h2>
+    <ul>
+        <li><strong>try:</strong> bloco que pode gerar erro</li>
+        <li><strong>catch:</strong> trata o erro</li>
+        <li><strong>finally:</strong> sempre executa</li>
+        <li><strong>throw:</strong> lança exceção</li>
+        <li><strong>throws:</strong> indica exceções</li>
+    </ul>
+</div>
+
+<div class="box">
+    <h2>💡 Dica Final</h2>
+    <p>
+        Evite capturar exceções genéricas (<strong>Exception</strong>) sem necessidade.
+        Sempre trate erros específicos primeiro.
+    </p>
+</div>
+
+</body>
+</html>

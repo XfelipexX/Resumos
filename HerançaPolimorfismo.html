@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Guia POO - Herança e Polimorfismo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        code, pre {
+            background: #222;
+            color: #0f0;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📘 Guia Completo: Herança, Polimorfismo, Upcasting e Downcasting</h1>
+
+    <div class="box">
+        <h2>🔷 1. Herança</h2>
+        <p>
+            Herança permite que uma classe (subclasse) herde atributos e métodos de outra (superclasse).
+        </p>
+        <ul>
+            <li>Reutilização de código</li>
+            <li>Organização hierárquica</li>
+            <li>Facilidade de manutenção</li>
+        </ul>
+
+        <pre><code>
+class Produto {
+    String nome;
+    double preco;
+
+    public double precoFinal() {
+        return preco;
+    }
+}
+
+class ProdutoImportado extends Produto {
+    double taxaImportacao;
+
+    @Override
+    public double precoFinal() {
+        return preco + taxaImportacao;
+    }
+}
+        </code></pre>
+    </div>
+
+    <div class="box">
+        <h2>🔷 2. Polimorfismo</h2>
+        <p>
+            Permite que um método tenha comportamentos diferentes dependendo do objeto.
+        </p>
+
+        <pre><code>
+Produto p1 = new Produto();
+Produto p2 = new ProdutoImportado();
+
+System.out.println(p1.precoFinal());
+System.out.println(p2.precoFinal());
+        </code></pre>
+    </div>
+
+    <div class="box">
+        <h2>🔷 3. Upcasting</h2>
+        <p>
+            Conversão de subclasse para superclasse.
+        </p>
+
+        <ul>
+            <li>Automático</li>
+            <li>Seguro</li>
+        </ul>
+
+        <pre><code>
+Produto p = new ProdutoImportado();
+        </code></pre>
+    </div>
+
+    <div class="box">
+        <h2>🔷 4. Downcasting</h2>
+        <p>
+            Conversão de superclasse para subclasse.
+        </p>
+
+        <ul>
+            <li>Precisa de cast explícito</li>
+            <li>Pode gerar erro (ClassCastException)</li>
+        </ul>
+
+        <pre><code>
+Produto p = new ProdutoImportado();
+ProdutoImportado pi = (ProdutoImportado) p;
+        </code></pre>
+
+        <p><strong>Forma segura:</strong></p>
+
+        <pre><code>
+if (p instanceof ProdutoImportado) {
+    ProdutoImportado pi = (ProdutoImportado) p;
+}
+        </code></pre>
+    </div>
+
+    <div class="box">
+        <h2>🔷 5. Exemplo Completo</h2>
+
+        <pre><code>
+import java.util.ArrayList;
+import java.util.List;
+
+class Produto {
+    String nome;
+    double preco;
+
+    public Produto(String nome, double preco) {
+        this.nome = nome;
+        this.preco = preco;
+    }
+
+    public double precoFinal() {
+        return preco;
+    }
+}
+
+class ProdutoImportado extends Produto {
+    double taxaImportacao;
+
+    public ProdutoImportado(String nome, double preco, double taxaImportacao) {
+        super(nome, preco);
+        this.taxaImportacao = taxaImportacao;
+    }
+
+    @Override
+    public double precoFinal() {
+        return preco + taxaImportacao;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        List&lt;Produto&gt; lista = new ArrayList&lt;&gt;();
+
+        lista.add(new Produto("Teclado", 100));
+        lista.add(new ProdutoImportado("Notebook", 2000, 300));
+
+        for (Produto p : lista) {
+            System.out.println(p.precoFinal());
+        }
+    }
+}
+        </code></pre>
+    </div>
+
+    <div class="box">
+        <h2>🔷 6. Resumo Geral</h2>
+        <ul>
+            <li><strong>Herança:</strong> Uma classe herda de outra</li>
+            <li><strong>Polimorfismo:</strong> Métodos com comportamentos diferentes</li>
+            <li><strong>Upcasting:</strong> Subclasse → Superclasse</li>
+            <li><strong>Downcasting:</strong> Superclasse → Subclasse</li>
+        </ul>
+    </div>
+
+</body>
+</html>
