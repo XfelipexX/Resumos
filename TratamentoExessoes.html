@@ -134,12 +134,57 @@ public void lerArquivo() throws IOException {
 </div>
 
 <div class="box">
-    <h2>🔷 9. Criando Exceção Personalizada</h2>
+    <h2>🔷 9. Exceção Personalizada (Completo)</h2>
+
+    <p>
+        Exceções personalizadas permitem criar erros específicos para regras do seu sistema.
+        Isso deixa o código mais organizado e semântico.
+    </p>
+
+    <h3>✔️ Criando a exceção:</h3>
 
     <pre><code>
-class MinhaExcecao extends Exception {
-    public MinhaExcecao(String msg) {
-        super(msg);
+public class SaldoInsuficienteException extends Exception {
+
+    public SaldoInsuficienteException(String mensagem) {
+        super(mensagem);
+    }
+}
+    </code></pre>
+
+    <h3>✔️ Usando a exceção:</h3>
+
+    <pre><code>
+class Conta {
+
+    private double saldo;
+
+    public Conta(double saldoInicial) {
+        this.saldo = saldoInicial;
+    }
+
+    public void sacar(double valor) throws SaldoInsuficienteException {
+        if (valor > saldo) {
+            throw new SaldoInsuficienteException("Saldo insuficiente!");
+        }
+        saldo -= valor;
+    }
+}
+    </code></pre>
+
+    <h3>✔️ Tratando a exceção:</h3>
+
+    <pre><code>
+public class Teste {
+    public static void main(String[] args) {
+
+        Conta conta = new Conta(100);
+
+        try {
+            conta.sacar(200);
+        } catch (SaldoInsuficienteException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 }
     </code></pre>

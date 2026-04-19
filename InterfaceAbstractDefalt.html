@@ -1,0 +1,65 @@
+<div class="box">
+    <h2>🔷 Tabela: Interface vs Default vs Abstract</h2>
+
+    <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width:100%; background:#fff;">
+        <thead style="background:#333; color:#fff;">
+            <tr>
+                <th>Conceito</th>
+                <th>Descrição</th>
+                <th>Implementação</th>
+                <th>Observações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Interface</strong></td>
+                <td>Define um contrato que outras classes devem seguir</td>
+                <td>
+<pre><code>
+interface Animal {
+    void fazerSom();
+}
+</code></pre>
+                </td>
+                <td>
+                    Não pode ter construtor<br>
+                    Métodos são públicos por padrão
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Método Abstract</strong></td>
+                <td>Método sem corpo (sem implementação)</td>
+                <td>
+<pre><code>
+abstract class Animal {
+    abstract void fazerSom();
+}
+</code></pre>
+                </td>
+                <td>
+                    Obrigatório implementar na subclasse<br>
+                    Pode estar em classe abstrata ou interface
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Método Default</strong></td>
+                <td>Método com implementação dentro da interface</td>
+                <td>
+<pre><code>
+interface Animal {
+    default void dormir() {
+        System.out.println("Dormindo...");
+    }
+}
+</code></pre>
+                </td>
+                <td>
+                    Não é obrigatório sobrescrever<br>
+                    Evita quebrar código antigo
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
