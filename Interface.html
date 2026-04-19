@@ -1,19 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>Interface é um tipo que define um conjunto de operações que uma classe deve implementar.</p>
-    <p>A interface estabelece um contratoque a classe deve cumprir.</p>
-    <P>USA -> Implements</P>
-    <p>instanciando -> Interface apelido = new Classe()</p>
-    <H2>Interface Comparable</H2>
-    <P>public interface Comparable<T> {int compareTo (T o);}</P>
-    <H2>Default methods</H2>
-    <P>começar o metodo com "Default" na inteface usado para evitar repetição nas classes da interface</P>
-    <img src="C:\Users\felip\Desktop\programação\HTML\Imagens\exemploDefault.jpg" alt="" height="500" width="1200">
-</body>
-</html>
+<div class="box">
+    <h2>🔷 Tabela: Interfaces importantes em Java</h2>
+
+    <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width:100%; background:#fff;">
+        <thead style="background:#333; color:#fff;">
+            <tr>
+                <th>Interface</th>
+                <th>Descrição</th>
+                <th>Exemplo</th>
+                <th>Observações</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><strong>Interface</strong></td>
+                <td>Define um contrato que classes devem implementar</td>
+                <td>
+<pre><code>
+interface Animal {
+    void fazerSom();
+}
+</code></pre>
+                </td>
+                <td>Todos os métodos são public por padrão</td>
+            </tr>
+
+            <tr>
+                <td><strong>Comparable&lt;T&gt;</strong></td>
+                <td>Define ordenação natural de objetos</td>
+                <td>
+<pre><code>
+class Produto implements Comparable&lt;Produto&gt; {
+
+    String nome;
+    double preco;
+
+    @Override
+    public int compareTo(Produto outro) {
+        return Double.compare(this.preco, outro.preco);
+    }
+}
+</code></pre>
+                </td>
+                <td>Usado em Collections.sort()</td>
+            </tr>
+
+            <tr>
+                <td><strong>Comparator&lt;T&gt;</strong></td>
+                <td>Define ordenação externa/customizada</td>
+                <td>
+<pre><code>
+Comparator&lt;Produto&gt; comp =
+    (p1, p2) -> Double.compare(p1.preco, p2.preco);
+</code></pre>
+                </td>
+                <td>Permite várias formas de ordenação</td>
+            </tr>
+
+            <tr>
+                <td><strong>Iterable&lt;T&gt;</strong></td>
+                <td>Permite usar foreach</td>
+                <td>
+<pre><code>
+for (Produto p : lista) {
+    System.out.println(p);
+}
+</code></pre>
+                </td>
+                <td>Base de listas e coleções</td>
+            </tr>
+
+            <tr>
+                <td><strong>Serializable</strong></td>
+                <td>Permite salvar objeto em arquivo</td>
+                <td>
+<pre><code>
+class Produto implements Serializable {
+}
+</code></pre>
+                </td>
+                <td>Usado para persistência</td>
+            </tr>
+
+            <tr>
+                <td><strong>Cloneable</strong></td>
+                <td>Permite clonar objetos</td>
+                <td>
+<pre><code>
+protected Object clone() throws CloneNotSupportedException {
+    return super.clone();
+}
+</code></pre>
+                </td>
+                <td>Uso raro hoje em dia</td>
+            </tr>
+
+            <tr>
+                <td><strong>Runnable</strong></td>
+                <td>Representa uma tarefa executável</td>
+                <td>
+<pre><code>
+Runnable r = () -> System.out.println("Rodando");
+new Thread(r).start();
+</code></pre>
+                </td>
+                <td>Usado em threads</td>
+            </tr>
+
+            <tr>
+                <td><strong>AutoCloseable</strong></td>
+                <td>Usado em try-with-resources</td>
+                <td>
+<pre><code>
+try (Scanner sc = new Scanner(System.in)) {
+}
+</code></pre>
+                </td>
+                <td>Fecha recursos automaticamente</td>
+            </tr>
+
+            <tr>
+                <td><strong>Function&lt;T,R&gt;</strong></td>
+                <td>Recebe T e retorna R</td>
+                <td>
+<pre><code>
+Function&lt;Integer, Integer&gt; f = x -> x * 2;
+</code></pre>
+                </td>
+                <td>Programação funcional</td>
+            </tr>
+
+            <tr>
+                <td><strong>Predicate&lt;T&gt;</strong></td>
+                <td>Retorna true ou false</td>
+                <td>
+<pre><code>
+Predicate&lt;Integer&gt; p = x -> x &gt; 10;
+</code></pre>
+                </td>
+                <td>Filtros</td>
+            </tr>
+
+            <tr>
+                <td><strong>Consumer&lt;T&gt;</strong></td>
+                <td>Executa ação sem retorno</td>
+                <td>
+<pre><code>
+Consumer&lt;String&gt; c = s -> System.out.println(s);
+</code></pre>
+                </td>
+                <td>Usado em forEach</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
