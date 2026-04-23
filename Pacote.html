@@ -27,5 +27,182 @@
         <tr><td>= new File(strPath + "\\subdir").mkdir();</td><td>criando pasta</td></tr>
     
     </table>
+
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Guia Completo: Pacotes e Arquivos em Java</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #222;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📁 Guia Completo: Pacotes e Manipulação de Arquivos em Java</h1>
+
+<div class="box">
+    <h2>🔷 1. Pacotes (package)</h2>
+
+    <p>Pacotes servem para organizar classes em Java.</p>
+
+    <pre><code>
+package com.meuprojeto.model;
+    </code></pre>
+
+    <p>Importando classes:</p>
+
+    <pre><code>
+import java.util.Scanner;
+import java.io.File;
+    </code></pre>
+
+</div>
+
+<div class="box">
+    <h2>🔷 2. Classe File (caminho de arquivo)</h2>
+
+    <pre><code>
+String caminho = "C:\\temp\\arquivo.txt";
+
+File file = new File(caminho);
+    </code></pre>
+
+    <p>Representa arquivos ou diretórios.</p>
+</div>
+
+<div class="box">
+    <h2>🔷 3. Leitura de Arquivo</h2>
+
+    <pre><code>
+FileReader fr = null;
+BufferedReader br = null;
+
+try {
+    fr = new FileReader(caminho);
+    br = new BufferedReader(fr);
+
+    String linha = br.readLine();
+
+    while (linha != null) {
+        System.out.println(linha);
+        linha = br.readLine();
+    }
+
+} catch (IOException e) {
+    System.out.println("Erro: " + e.getMessage());
+}
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 4. Escrita de Arquivo</h2>
+
+    <pre><code>
+FileWriter fw = null;
+BufferedWriter bw = null;
+
+try {
+    fw = new FileWriter(caminho);
+    bw = new BufferedWriter(fw);
+
+    bw.write("Linha 1");
+    bw.newLine();
+    bw.write("Linha 2");
+
+} catch (IOException e) {
+    System.out.println("Erro: " + e.getMessage());
+}
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 5. Try-with-resources (Melhor prática)</h2>
+
+    <pre><code>
+try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
+    bw.write("Texto automático");
+    bw.newLine();
+}
+    </code></pre>
+
+    <p>Fecha automaticamente os recursos.</p>
+</div>
+
+<div class="box">
+    <h2>🔷 6. Acrescentar conteúdo no arquivo</h2>
+
+    <pre><code>
+new FileWriter(caminho, true);
+    </code></pre>
+
+    <p><strong>true</strong> → adiciona sem apagar o conteúdo existente</p>
+</div>
+
+<div class="box">
+    <h2>🔷 7. Listando arquivos e pastas</h2>
+
+    <pre><code>
+File path = new File("C:\\temp");
+
+File[] files = path.listFiles(File::isFile);
+File[] folders = path.listFiles(File::isDirectory);
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 8. Criando pastas</h2>
+
+    <pre><code>
+boolean sucesso = new File("C:\\temp\\subdir").mkdir();
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 9. Resumo Geral</h2>
+
+    <ul>
+        <li><strong>File</strong> → representa arquivo/caminho</li>
+        <li><strong>FileReader</strong> → leitura de caracteres</li>
+        <li><strong>BufferedReader</strong> → leitura eficiente</li>
+        <li><strong>FileWriter</strong> → escrita</li>
+        <li><strong>BufferedWriter</strong> → escrita eficiente</li>
+        <li><strong>readLine()</strong> → lê linha</li>
+        <li><strong>write()</strong> → escreve</li>
+        <li><strong>newLine()</strong> → quebra de linha</li>
+    </ul>
+</div>
+
+<div class="box">
+    <h2>💡 Dica Final</h2>
+    <p>
+        Sempre prefira <strong>BufferedReader</strong> e <strong>BufferedWriter</strong>
+        para melhor performance.
+    </p>
+</div>
+
+</body>
+</html>
 </body>
 </html>

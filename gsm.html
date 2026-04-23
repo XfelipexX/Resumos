@@ -1,60 +1,290 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Guia Completo: Generics, Set e Map em Java</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #222;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        th {
+            background: #eee;
+        }
+    </style>
 </head>
 <body>
-    <h2>Generic</h2>
-    <p>instancia -> classe< tipo ex:integer, String e etc> apelido = new classe<>tipo>();</p>
-    <p>na classe lembrando que T é uma letra aleatoria onde representa o tipo</p>
-    <img src="C:\Users\felip\Desktop\programação\HTML\Imagens\Generic.jpg" alt="Generic na class" height="500" width="1200">
-    <h2>Coringa</h2>
-    <p></p>
-    <p>instancia -> List< ?> apelido = new ArrayList< Object>();</p>
-    <h2>hashCode e equals</h2>
-    <p>São operações da classe Object utilizadas para comparar se um objeto é igual a outro</p>
-    <p>• equals: lento, resposta 100% </p>
-    <p>• hashCode: rápido, porém resposta positiva não é 100%</p>
-    <p>Equals-> Método que compara se o objeto é igual a outro, retornando true ou false.</p>
-    <p>HashCode-> Método que retorna um número inteiro representando um código gerado a partir das informações do objeto</p>
-    <h2>set</h2>
-    <p>chamando -> set< String> set = new HashSet, treeSet e etc<>();</p>
-    <p>HashSet - mais rápido (operações O(1) em tabela hash) e não ordenado</p>
-    <p>TreeSet - mais lento (operações O(log(n)) em árvore rubro-negra) e ordenado pelo compareTo do objeto (ou Comparator)</p>
-    <p>LinkedHashSet - velocidade intermediária e elementos na ordem em que são adicionados</p>
-    <h3>Alguns métodos importantes</h3>
-    <p>• add(obj), remove(obj), contains(obj)</p>
-    <p>Baseado em equals e hashCode</p>
-    <p>Se equals e hashCode não existir, é usada comparação de ponteiros</p>
-    <p>clear()</p>
-    <p>Size()</p>
-    <p>removeif(predicate) ex: removeif(x-> x.char.at(0) == 'T') para remover todos os nomes que começa com T </p>
-    <p>addAll(other) - união: adiciona no conjunto os elementos do outro conjunto, sem repetição</p>
-    <p>retainAll(other) - interseção: remove do conjunto os elementos não contitos em other</p>
-    <p>removeAll(other) - diferença: remove do conjunto os elementos contidos em other</p>
-    <h2>Map< K,V></h2>
-    <p>É uma coleção de pares chave / valor</p>
-    <P>Não admite repetições do objeto chave</P>
-    <p>Os elementos são indexados pelo objeto chave (não possuem posição)</p>
-    <p>Acesso, inserção e remoção de elementos são rápidos</p>
-    <p>Uso comum: cookies, local storage, qualquer modelo chave-valor</p>
-    <h3>Principais implementações:</h3>
-    <p>HashMap - mais rápido (operações O(1) em tabela hash) e não ordenado</p>
-    <p>TreeMap - mais lento (operações O(log(n)) em árvore rubro-negra) e ordenado pelo compareTo do objeto (ou Comparator)</p>
-    <p>LinkedHashMap - velocidade intermediária e elementos na ordem em que são adicionados</p>
-    <h2>Alguns métodos importantes</h2>
-    <p>put(key, value), remove(key), containsKey(key), get(key)</p>
-    <p>put(), que associa um novo objeto valor ao objeto chave especificado;</p>
-    <p>get(), que retorna o objeto valor associado ao objeto chave especificado;</p>
-    <p>containsKey(), que indica se a chave especificada está presente na coleção;</p>
-    <p>Baseado em equals e hashCode</p>
-    <p>Se equals e hashCode não existir, é usada comparação de ponteiros</p>
-    <p>clear()</p>
-    <p>size()</p>
-    <p>keySet() - retorna um Set< K></p>
-    <p>values() - retornaa um Collection< V></p>
+
+<h1>📦 Guia Completo: Generics, Set e Map em Java</h1>
+
+<div class="box">
+    <h2>🔷 1. Generics</h2>
+
+    <p>Permite criar classes e coleções com tipos parametrizados.</p>
+
+    <pre><code>
+List&lt;String&gt; lista = new ArrayList&lt;&gt;();
+    </code></pre>
+
+    <table>
+        <tr><th>Parte</th><th>Explicação</th></tr>
+        <tr><td>List&lt;String&gt;</td><td>Lista que aceita apenas String</td></tr>
+        <tr><td>ArrayList&lt;&gt;</td><td>Implementação da lista</td></tr>
+    </table>
+
+    <p>Classe genérica:</p>
+
+    <pre><code>
+public class Caixa&lt;T&gt; {
+    private T valor;
+
+    public void setValor(T valor) {
+        this.valor = valor;
+    }
+
+    public T getValor() {
+        return valor;
+    }
+}
+    </code></pre>
+
+    <table>
+        <tr><th>Parte</th><th>Explicação</th></tr>
+        <tr><td>&lt;T&gt;</td><td>Tipo genérico (pode ser qualquer tipo)</td></tr>
+        <tr><td>setValor()</td><td>Define o valor</td></tr>
+        <tr><td>getValor()</td><td>Retorna o valor</td></tr>
+    </table>
+
+    <p>Com restrição:</p>
+
+    <pre><code>
+public class Exemplo&lt;T extends Number&gt; {
+}
+    </code></pre>
+
+    <table>
+        <tr><th>Parte</th><th>Explicação</th></tr>
+        <tr><td>T extends Number</td><td>Só aceita números (Integer, Double...)</td></tr>
+    </table>
+</div>
+
+<div class="box">
+    <h2>🔷 2. Coringa (Wildcard)</h2>
+
+    <p>Representa qualquer tipo:</p>
+
+    <pre><code>
+List&lt;?&gt; lista = new ArrayList&lt;Object&gt;();
+    </code></pre>
+
+    <table>
+        <tr><th>Tipo</th><th>Explicação</th></tr>
+        <tr><td>?</td><td>Qualquer tipo</td></tr>
+        <tr><td>? extends T</td><td>Só leitura (subtipos)</td></tr>
+        <tr><td>? super T</td><td>Permite escrita</td></tr>
+    </table>
+
+    <ul>
+        <li><strong>? extends T</strong> → leitura (subtipos)</li>
+        <li><strong>? super T</strong> → escrita (supertipos)</li>
+    </ul>
+
+    <pre><code>
+// leitura
+List&lt;? extends Number&gt;
+
+// escrita
+List&lt;? super Integer&gt;
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 3. equals() e hashCode()</h2>
+
+    <p>Usados para comparar objetos.</p>
+
+    <ul>
+        <li>equals → comparação de conteúdo</li>
+        <li>hashCode → código numérico do objeto</li>
+    </ul>
+
+    <p>Regra importante:</p>
+    <p>Se dois objetos são iguais → devem ter o mesmo hashCode</p>
+
+    <pre><code>
+@Override
+public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (!(obj instanceof Produto)) return false;
+
+    Produto other = (Produto) obj;
+    return nome.equals(other.nome);
+}
+
+@Override
+public int hashCode() {
+    return nome.hashCode();
+}
+    </code></pre>
+
+    <table>
+        <tr><th>Método</th><th>Explicação</th></tr>
+        <tr><td>equals()</td><td>Compara conteúdo</td></tr>
+        <tr><td>hashCode()</td><td>Gera código para comparação rápida</td></tr>
+    </table>
+</div>
+
+<div class="box">
+    <h2>🔷 4. Set</h2>
+
+    <p>Não permite elementos repetidos.</p>
+
+    <pre><code>
+Set&lt;String&gt; set = new HashSet&lt;&gt;();
+    </code></pre>
+
+    <p><strong>Tipos:</strong></p>
+
+    <ul>
+        <li>HashSet → rápido, não ordenado</li>
+        <li>TreeSet → ordenado, mais lento</li>
+        <li>LinkedHashSet → mantém ordem de inserção</li>
+    </ul>
+
+    <h3>Métodos:</h3>
+
+    <pre><code>
+set.add("A");
+set.remove("A");
+set.contains("A");
+set.size();
+set.clear();
+    </code></pre>
+
+    <table>
+        <tr><th>Método</th><th>Explicação</th></tr>
+        <tr><td>add()</td><td>Adiciona elemento</td></tr>
+        <tr><td>remove()</td><td>Remove elemento</td></tr>
+        <tr><td>contains()</td><td>Verifica existência</td></tr>
+        <tr><td>size()</td><td>Quantidade</td></tr>
+        <tr><td>clear()</td><td>Limpa tudo</td></tr>
+    </table>
+
+    <h3>Operações:</h3>
+
+    <pre><code>
+set1.addAll(set2);      // união
+set1.retainAll(set2);   // interseção
+set1.removeAll(set2);   // diferença
+    </code></pre>
+
+    <table>
+        <tr><th>Operação</th><th>Explicação</th></tr>
+        <tr><td>addAll</td><td>Une conjuntos</td></tr>
+        <tr><td>retainAll</td><td>Interseção</td></tr>
+        <tr><td>removeAll</td><td>Diferença</td></tr>
+    </table>
+
+    <pre><code>
+set.removeIf(x -> x.startsWith("T"));
+    </code></pre>
+</div>
+
+<div class="box">
+    <h2>🔷 5. Map&lt;K,V&gt;</h2>
+
+    <p>Coleção de chave → valor.</p>
+
+    <ul>
+        <li>Não permite chave duplicada</li>
+        <li>Acesso rápido</li>
+    </ul>
+
+    <pre><code>
+Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+    </code></pre>
+
+    <p><strong>Tipos:</strong></p>
+
+    <ul>
+        <li>HashMap → rápido</li>
+        <li>TreeMap → ordenado</li>
+        <li>LinkedHashMap → mantém ordem</li>
+    </ul>
+
+    <h3>Métodos:</h3>
+
+    <pre><code>
+map.put("A", 10);
+map.get("A");
+map.remove("A");
+map.containsKey("A");
+map.containsValue(10);
+map.size();
+map.clear();
+    </code></pre>
+
+    <table>
+        <tr><th>Método</th><th>Explicação</th></tr>
+        <tr><td>put()</td><td>Adiciona ou atualiza</td></tr>
+        <tr><td>get()</td><td>Busca valor</td></tr>
+        <tr><td>remove()</td><td>Remove chave</td></tr>
+        <tr><td>containsKey()</td><td>Verifica chave</td></tr>
+        <tr><td>containsValue()</td><td>Verifica valor</td></tr>
+        <tr><td>size()</td><td>Quantidade</td></tr>
+        <tr><td>clear()</td><td>Limpa Map</td></tr>
+    </table>
+
+    <h3>Navegação:</h3>
+
+    <pre><code>
+for (String key : map.keySet()) {
+    System.out.println(key);
+}
+
+for (Integer value : map.values()) {
+    System.out.println(value);
+}
+
+for (Map.Entry&lt;String, Integer&gt; entry : map.entrySet()) {
+    System.out.println(entry.getKey() + " - " + entry.getValue());
+}
+    </code></pre>
+
+    <table>
+        <tr><th>Forma</th><th>Explicação</th></tr>
+        <tr><td>keySet()</td><td>Retorna chaves</td></tr>
+        <tr><td>values()</td><td>Retorna valores</td></tr>
+        <tr><td>entrySet()</td><td>Chave + valor</td></tr>
+    </table>
+</div>
 
 </body>
 </html>
