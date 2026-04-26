@@ -3,43 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Guia Completo Streams</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        pre {
+            background: #222;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+
+<h1>🚀 Guia Completo: Streams e Interfaces Funcionais</h1>
+
+<div class="box">
     <h2>Comparator</h2>
     <p>em lambda</p>
     <p>Usado para comparar preços -> list.sort((p1, p2) -> p1.getPrice().compareTo(p2.getPrice()));</p>
     <p>usado para comparar nomes -> list.sort((s1, s2) -> s1.toUppercase().compareTo(s2.toUppercase()));</p>
-    
+
+    <p><strong>Explicação adicional:</strong></p>
+    <p>Comparator permite criar regras personalizadas de ordenação.</p>
+    <p>Retorno do compare:</p>
+    <ul>
+        <li>Negativo → primeiro menor</li>
+        <li>Zero → iguais</li>
+        <li>Positivo → segundo menor</li>
+    </ul>
+
+    <pre><code>
+// crescente
+list.sort((p1, p2) -> p1.getPrice().compareTo(p2.getPrice()));
+
+// decrescente
+list.sort((p1, p2) -> p2.getPrice().compareTo(p1.getPrice()));
+</code></pre>
+
+    <p><strong>Forma moderna:</strong></p>
+    <pre><code>
+list.sort(Comparator.comparing(Produto::getPrice));
+</code></pre>
+</div>
+
+
+<div class="box">
     <h2>Predicate</h2>
     <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html"> Documentação</a>
     <p>Um boolean</p>
     <p>em lambda</p>
-    <p>Um exemplo de um Predicate que acha valores maior q 100 ->Predicate< tipo> apelido = p -> p.getPrice() >= 100 </p>
-    
+    <p>Um exemplo de um Predicate que acha valores maior q 100 ->Predicate&lt; tipo&gt; apelido = p -> p.getPrice() >= 100 </p>
+
+    <p><strong>Explicação adicional:</strong></p>
+    <p>Predicate representa uma condição lógica.</p>
+
+    <pre><code>
+Predicate&lt;Produto&gt; caro = p -> p.getPrice() &gt; 100;
+
+list.stream()
+    .filter(caro)
+    .forEach(System.out::println);
+</code></pre>
+
+    <p><strong>Composição:</strong></p>
+    <pre><code>
+Predicate&lt;Produto&gt; caro = p -> p.getPrice() &gt; 100;
+Predicate&lt;Produto&gt; nomeA = p -> p.getName().startsWith("A");
+
+list.stream()
+    .filter(caro.and(nomeA))
+    .forEach(System.out::println);
+</code></pre>
+</div>
+
+
+<div class="box">
     <h2>Consumer</h2>
     <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html"> Documentação</a>
     <p>Consumer ele executa uma função mas nao retorna nada</p>
-    <p>Um exemplo de um Consumer que add 10% em cada preço de uma lista ->Consumer< tipo> apelido = p -> p.getPrice(p.getPrice * 1.1)  </p>
-    
+    <p>Um exemplo de um Consumer que add 10% em cada preço de uma lista ->Consumer&lt; tipo&gt; apelido = p -> p.getPrice(p.getPrice * 1.1)  </p>
+
+    <p><strong>Explicação adicional:</strong></p>
+    <p>Consumer altera dados (efeito colateral).</p>
+
+    <pre><code>
+list.forEach(p -> p.setPrice(p.getPrice() * 1.1));
+</code></pre>
+
+    <p><strong>Encadeamento:</strong></p>
+    <pre><code>
+Consumer&lt;Produto&gt; aumento = p -> p.setPrice(p.getPrice() * 1.1);
+Consumer&lt;Produto&gt; print = p -> System.out.println(p);
+
+list.forEach(aumento.andThen(print));
+</code></pre>
+</div>
+
+
+<div class="box">
     <h2>function</h2>
     <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html">Documentação</a>
     <p>É uma função que recebe um t e retorna um r</p>
     <p>exemplo de um function que transforma a primeira letra de cada nome em uma letra maiuscula (o function esta dentro do .map)</p>
-    <p>List< String> list = list.stream().map(new toUppercaseName()).collect(collectors.toList)</p>
-    
+    <p>List&lt; String&gt; list = list.stream().map(new toUppercaseName()).collect(collectors.toList)</p>
+
+    <p><strong>Explicação adicional:</strong></p>
+    <p>Function transforma dados.</p>
+
+    <pre><code>
+list.stream()
+    .map(nome -> nome.toUpperCase())
+    .forEach(System.out::println);
+</code></pre>
+
+    <p><strong>Encadeamento:</strong></p>
+    <pre><code>
+Function&lt;Produto, String&gt; nome = p -> p.getName();
+Function&lt;String, String&gt; upper = s -> s.toUpperCase();
+
+list.stream()
+    .map(nome.andThen(upper))
+    .forEach(System.out::println);
+</code></pre>
+</div>
+
+
+<div class="box">
     <h2>Stream</h2>
     <a href="https://www.oracle.com/br/technical-resources/articles/java-stream-api.html">Documentação</a>
     <p>É uma sequencia de elementos advinda de uma fonte de dados que oferece suporte a "operações agregadas"</p>
     <p>Fonte de dados: coleção, array, função de iteração, recurso de E/S</p>
-    <p></p>
+
+    <p><strong>Explicação adicional:</strong></p>
+    <p>Stream não altera a coleção original (imutável).</p>
+
     <h1>criar uma Steam</h1>
-    <p>usa - Stream< String> stream =</p>
+    <p>usa - Stream&lt; String&gt; stream =</p>
     <p>Basta chamar o método stream() ou parallelStream() a partir de qualquer objeto Collection</p>
     <p>Stream.of =  cria uma stream a partir dos elementos fornecidos como argumentos.</p>
     <p>Stream.ofNullable = cria uma stream com um único elemento, a menos que o elemento seja nulo, nesse caso, cria uma stream vazia.</p>
     <p>Stream.iterate = cria uma stream onde cada elemento é gerado pela aplicação repetida de uma função ao elemento anterior. Pode ser usado para gerar sequências infinitas.</p>
-    
+
+    <pre><code>
+Stream&lt;String&gt; s = list.stream();
+Stream&lt;String&gt; s2 = Stream.of("A","B");
+</code></pre>
+</div>
+
+
+<div class="box">
     <h2>Operações intermediárias</h2>
     <p>map(Function): Adiciona algo em todas as steam.</p>
     <p>filter: Filtra os elementos da stream com base em uma condição especificada pelo predicado.</p>
@@ -50,6 +191,20 @@
     <p>skip: Pula os primeiros N elementos da stream.</p>
     <p>limit: Limita a stream para conter no máximo N elementos.</p>
 
+    <pre><code>
+list.stream()
+    .filter(x -> x > 10)
+    .map(x -> x * 2)
+    .sorted()
+    .limit(5)
+    .forEach(System.out::println);
+</code></pre>
+
+    <p><strong>Fluxo mental:</strong> stream → filter → map → sorted → collect</p>
+</div>
+
+
+<div class="box">
     <h2>Operações terminais</h2>
     <p>removeIf(Predicate): Remove elementos da coleção que atendem à condição especificada pelo predicado.</p>
     <p>foreach(Consumer): Executa uma ação para cada elemento da stream.</p>
@@ -66,6 +221,15 @@
     <p>noneMatch: Verifica se nenhum elemento da stream atende à condição especificada.</p>
     <p>findFirst: Encontra o primeiro elemento da stream.</p>
     <p>findAny: Encontra qualquer elemento da stream. Em streams paralelas, isso pode ser mais eficiente do que findFirst.</p>
+
+    <pre><code>
+int soma = list.stream().reduce(0, Integer::sum);
+long count = list.stream().count();
+boolean existe = list.stream().anyMatch(x -> x > 100);
+</code></pre>
+
+    <p><strong>Importante:</strong> operações terminais encerram a stream.</p>
+</div>
 
 </body>
 </html>

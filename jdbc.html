@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Guia Completo: SQL com Java (JDBC)</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        pre {
+            background: #222;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🗄️ Guia Completo: SQL com Java (JDBC)</h1>
+
+<div class="box">
+    <h2>🔷 1. O que é JDBC?</h2>
+
+    <p>JDBC (Java Database Connectivity) é a API que permite conectar Java com banco de dados.</p>
+
+    <p><strong>Fluxo:</strong></p>
+    <ul>
+        <li>Java → Driver → Banco de Dados</li>
+    </ul>
+
+</div>
+
+<div class="box">
+    <h2>🔷 2. Conexão com o Banco</h2>
+
+    <pre><code>
+package db;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
+public class DB {
+    private static Connection conn = null;
+
+    public static Connection getConnection(){
+        if(conn == null){
+            try {
+                Properties prop = loadProperties();
+                String url = prop.getProperty("dburl");
+                conn = DriverManager.getConnection(url, prop);
+            } catch (SQLException e) {
+                throw new DbException(e.getMessage());
+            }
+        }
+        return conn;
+    }
+
+    public static void closeConnect(){
+        if(conn != null){
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new DbException(e.getMessage());
+            }
+        }
+    }
+
+    private static Properties loadProperties(){
+        try(FileInputStream fs = new FileInputStream("jdbc-2\\db.properties")){
+            Properties props = new Properties();
+            props.load(fs);
+            return props;
+        } catch (IOException e) {
+            throw new DbException(e.getMessage());
+        }
+    }
+}
+
+</code></pre>
+
+    <p><strong>Explicação:</strong></p>
+
+    <p><strong>getConnection(url, user, password)</strong></p>
+    <ul>
+        <li>url → endereço do banco (jdbc:mysql://localhost:3306/db)</li>
+        <li>user → usuário</li>
+        <li>password → senha</li>
+    </ul>
+
+    <pre><code>
+db.properties
+user=developer
+password=9606
+dburl=jdbc:mysql://localhost:3306/coursejdbc
+useSSL=false
+
+</code></pre>
+
+</div>
+
+<div class="box">
+    <h2>🔷 3. Statement</h2>
+
+    <p>Executa SQL simples</p>
+
+    <pre><code>
+Statement st = conn.createStatement();
+</code></pre>
+
+    <p><strong>createStatement()</strong></p>
+    <ul>
+        <li>Cria objeto para executar SQL</li>
+    </ul>
+
+</div>
+
+<div class="box">
+    <h2>🔷 4. Executando SQL</h2>
+
+    <p><strong>executeQuery(sql)</strong> → SELECT</p>
+
+    <pre><code>
+ResultSet rs = st.executeQuery("SELECT * FROM produto");
+</code></pre>
+
+    <p><strong>executeUpdate(sql)</strong> → INSERT, UPDATE, DELETE</p>
+
+    <pre><code>
+int rows = st.executeUpdate("INSERT INTO produto VALUES (1, 'TV', 2000)");
+</code></pre>
+
+    <ul>
+        <li>retorna quantidade de linhas afetadas</li>
+    </ul>
+
+</div>
+
+<div class="box">
+    <h2>🔷 5. ResultSet</h2>
+
+    <p>Guarda resultado do SELECT</p>
+
+    <pre><code>
+while (rs.next()) {
+    System.out.println(rs.getString("nome"));
+}
+</code></pre>
+
+    <p><strong>Funções:</strong></p>
+
+    <p>next() → vai para próxima linha</p>
+    <p>getString("coluna") → pega String</p>
+    <p>getInt("coluna") → pega int</p>
+
+</div>
+
+<div class="box">
+    <h2>🔷 6. PreparedStatement (IMPORTANTE)</h2>
+
+    <p>Evita SQL Injection e melhora performance</p>
+
+    <pre><code>
+PreparedStatement ps = conn.prepareStatement(
+    "INSERT INTO produto (nome, preco) VALUES (?, ?)"
+);
+</code></pre>
+
+    <p><strong>prepareStatement(sql)</strong></p>
+    <ul>
+        <li>? → parâmetros</li>
+    </ul>
+
+    <pre><code>
+ps.setString(1, "Notebook");
+ps.setDouble(2, 3000.0);
+
+ps.executeUpdate();
+</code></pre>
+
+    <p><strong>setTipo(posição, valor)</strong></p>
+    <ul>
+        <li>1 → primeiro ?</li>
+        <li>2 → segundo ?</li>
+    </ul>
+
+</div>
+
+<div class="box">
+    <h2>🔷 7. Transações</h2>
+
+    <pre><code>
+conn.setAutoCommit(false);
+</code></pre>
+
+    <p><strong>commit()</strong> → salva</p>
+    <p><strong>rollback()</strong> → desfaz</p>
+
+    <pre><code>
+try {
+    conn.setAutoCommit(false);
+
+    st.executeUpdate("UPDATE conta SET saldo = saldo - 100 WHERE id = 1");
+    st.executeUpdate("UPDATE conta SET saldo = saldo + 100 WHERE id = 2");
+
+    conn.commit();
+
+} catch (SQLException e) {
+    conn.rollback();
+}
+</code></pre>
+
+</div>
+
+<div class="box">
+    <h2>🔷 8. Fechamento de recursos</h2>
+
+    <pre><code>
+rs.close();
+st.close();
+conn.close();
+</code></pre>
+
+    <p><strong>Ou melhor:</strong></p>
+
+    <pre><code>
+try (Connection conn = DriverManager.getConnection(...);
+     PreparedStatement ps = conn.prepareStatement(...)) {
+
+}
+</code></pre>
+
+    <p>→ fecha automaticamente</p>
+
+</div>
+
+<div class="box">
+    <h2>🔷 9. Exemplo Completo</h2>
+
+    <pre><code>
+import java.sql.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        String url = "jdbc:mysql://localhost:3306/test";
+        String user = "root";
+        String password = "1234";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM produto");
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                System.out.println(
+                    rs.getInt("id") + " - " +
+                    rs.getString("nome") + " - " +
+                    rs.getDouble("preco")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+</code></pre>
+
+</div>
+
+<div class="box">
+    <h2>🔷 10. Resumo Geral</h2>
+
+    <ul>
+        <li><strong>Connection</strong> → conecta</li>
+        <li><strong>Statement</strong> → executa SQL</li>
+        <li><strong>PreparedStatement</strong> → seguro (usar sempre)</li>
+        <li><strong>ResultSet</strong> → resultado</li>
+        <li><strong>commit/rollback</strong> → controle de transação</li>
+    </ul>
+
+</div>
+
+<div class="box">
+    <h2>💡 Dica Profissional</h2>
+
+    <p>Sempre use <strong>PreparedStatement</strong> em projetos reais.</p>
+    <p>Evita SQL Injection e melhora performance.</p>
+
+</div>
+
+</body>
+</html>
